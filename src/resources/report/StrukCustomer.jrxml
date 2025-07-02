@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="164" pageHeight="842" columnWidth="144" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="024e52fc-5417-4c7d-89bc-ee5418d4b0d9">
+	<property name="ireport.zoom" value="3.0000000000000053"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="177"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="order_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+o.id AS order_id, 
+o.order_date AS order_date, 
+o.payment_method AS payment_method, 
+o.status AS status, 
+o.total_items AS total_items, 
+o.total_quantity AS total_quantity, 
+o.total_price AS total_price, 
+
+od.item_id AS item_id, 
+it.name AS item_name, 
+it.price AS item_price, 
+od.quantity AS quantity_ordered, 
+od.subtotal AS line_subtotal 
+
+FROM orders o 
+INNER JOIN order_detail od ON o.id = od.order_id LEFT JOIN item it ON od.item_id = it.id 
+
+WHERE
+  o.id = $P{order_id}
+
+ORDER BY od.id]]>
+	</queryString>
+	<field name="order_id" class="java.lang.Integer"/>
+	<field name="order_date" class="java.time.LocalDateTime">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="payment_method" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_items" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_quantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_price" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_name" class="java.lang.String"/>
+	<field name="item_price" class="java.lang.Float"/>
+	<field name="quantity_ordered" class="java.lang.Integer"/>
+	<field name="line_subtotal" class="java.lang.Float"/>
+	<variable name="order_id_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{order_id}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="3" y="3" width="143" height="15" uuid="1c1a11ed-dab1-4cab-99c0-a2f6fd202b9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Taad Cafe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Title" x="3" y="16" width="143" height="10" uuid="66c54eb4-e56e-4636-8905-88fded1b0a8f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jl. Negara Api No. 52, Konoha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Title" x="3" y="29" width="143" height="10" uuid="f10d5202-f776-4252-bc9e-69937ad520a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Telp. 087123456890]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="47" width="139" height="1" uuid="7e75843c-7998-4bbf-ac58-8265280ad375"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="2" width="78" height="10" uuid="07f6838e-af68-45fc-bbdf-aac820b75ee4"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{order_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="2" width="63" height="10" uuid="2a90457b-6963-43c2-8bb1-3c2f835ed9ae"/>
+				<textElement textAlignment="Right">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Order ID:" + $F{order_id}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="3" y="37" width="139" height="1" uuid="31dee296-c130-489e-8f89-497e17808094"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="3" y="12" width="78" height="10" uuid="7c3fcc45-024a-402d-84d1-a99f0f7ec780"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{payment_method}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="22" width="78" height="10" uuid="0c9c2a4c-9d80-459d-9716-873142e71b1f"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="6" width="78" height="10" uuid="c14fbe6a-6c60-4201-a039-5cf62ec0405f"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="19" width="78" height="10" uuid="f913838c-705f-4e12-a0fd-2f6873c4f67a"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity_ordered} + "x" + $F{item_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="19" width="63" height="10" uuid="6c3e0a0e-40e6-4c22-9398-70fd8026af6c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{line_subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="114" splitType="Stretch">
+			<line>
+				<reportElement x="3" y="0" width="139" height="1" uuid="36367b15-bb37-482c-a6a1-0b101990de2f"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Title" x="3" y="32" width="41" height="10" uuid="b4d86995-e634-463f-9710-b7efdcb43ea1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Consolas" size="6" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="11" width="78" height="10" uuid="8ac2b834-8c90-463d-977b-a89e118a2544"/>
+				<textElement>
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total QTY: " + $F{total_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="32" width="73" height="10" uuid="3489589b-e25f-4be5-867a-725f8c495641"/>
+				<textElement textAlignment="Right">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_price}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="59" width="100" height="20" uuid="38f398ac-ffa5-498d-9f8c-19b171586587"/>
+				<textElement textAlignment="Center">
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<text><![CDATA[== TERIMAKASIH ==]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="79" width="144" height="20" uuid="e9a6d878-b923-44f0-96a6-352d42ae83e4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Consolas" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Silakan bawa struk ini saat pengambilan pesanan]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
